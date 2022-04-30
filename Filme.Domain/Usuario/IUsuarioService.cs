@@ -8,10 +8,10 @@ namespace Filme.Domain.Usuario
 {
     public interface IUsuarioService
     {
-        Usuario Get(int id);
-        Usuario Post(Usuario usuario);
-        Usuario Put(Usuario usuario);
-        Usuario Delete(int id);
+        Task<Usuario> Get(Guid id);
+        Task Post(Usuario usuario);
+        Task Put(Usuario usuario);
+        Task Delete(Guid id);
 
        
     }

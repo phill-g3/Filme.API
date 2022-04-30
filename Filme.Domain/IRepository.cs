@@ -9,8 +9,10 @@ namespace Filme.Domain
     public interface IRepository
     {
         Task<T> Get<T>(int id) where T : class, new();
+        Task<T> Get<T>(Guid id) where T : class, new();
         Task Post<T>(T entity);
         Task Put<T>(T entity);
-        Task<T> Delete<T>(Guid id);
+        Task Delete<T>(int id) where T : class, new();
+        Task Delete<T>(Guid id) where T : class, new();
     }
 }

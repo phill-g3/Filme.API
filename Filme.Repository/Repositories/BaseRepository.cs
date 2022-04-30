@@ -10,24 +10,45 @@ namespace Filme.Repository.Repositories
     public abstract class BaseRepository
     {
         public readonly IContext _context;
-        private readonly string _className;
 
-        public BaseRepository(IContext context, string className)
+        public BaseRepository(IContext context)
         {
             _context = context;
-            _className = className;
         }
         public virtual async Task<T> Get<T>(int id) where T : class, new()
-        { 
-            var tipo = new T().GetType();
-            string tableName = GetTableName(tipo.Name);
+        {
+            try {
+                var tipo = new T().GetType();
+                string tableName = GetTableName(tipo.Name);
 
-            string sql = $"SELECT * FROM {tableName} WHERE Id{tableName} = @id";
+                string sql = $"SELECT * FROM {tableName} WHERE Id{tableName} = @id";
 
-            object dbParams = new {Id = id};    
+                object dbParams = new { Id = id };
 
-            return await _context.Get<T>(sql, dbParams);
+                return await _context.Get<T>(sql, dbParams);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        public virtual async Task<T> Get<T>(Guid id) where T : class, new()
+        {
+            try {
+                var tipo = new T().GetType();
+                string tableName = GetTableName(tipo.Name);
+
+                string sql = $"SELECT * FROM {tableName} WHERE Id{tableName} = @id";
+
+                object dbParams = new { Id = id };
+
+                return await _context.Get<T>(sql, dbParams);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public virtual async Task Post<T>(T entity) 
@@ -38,10 +59,26 @@ namespace Filme.Repository.Repositories
                 string tableName = GetTableName(tipo.Name);
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.Append($"INSERT INTO {tableName} VALUES(");
+                stringBuilder.Append($"INSERT INTO {tableName} (");
 
                 var props = tipo.GetProperties();
                 var i = props.Count();
+
+                for (int p = 0; p < i; p++)
+                {
+                    if (props[p].Name.Contains("Id")) continue;
+
+                    if (p == i - 1)
+                    {
+                        stringBuilder.Append($"{props[p].Name})");
+                    }
+                    else
+                    {
+                        stringBuilder.Append($"{props[p].Name},");
+                    }
+                }
+
+                stringBuilder.Append($" VALUES(");
 
                 for (int p = 0; p < i; p++)
                 {
@@ -99,7 +136,8 @@ namespace Filme.Repository.Repositories
                     }
                 }
 
-                stringBuilder.Append($" WHERE Id{tableName} = {id}");
+                stringBuilder.Append($" WHERE Id{tableName} = '{id}'");
+
                 string sql = stringBuilder.ToString();
 
                 await _context.Execute(sql);
@@ -111,16 +149,43 @@ namespace Filme.Repository.Repositories
            
         }
 
+        public virtual async Task Delete<T>(int id) where T : class, new()
+        {
+            try
+            {
+                var tipo = new T().GetType();
+                string tableName = GetTableName(tipo.Name);
+
+                string sql = $"DELETE FROM {tableName} WHERE Id{tableName} = @id";
+
+                object dbParams = new { Id = id };
+
+                await _context.Execute(sql, dbParams);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+           
+        }
+
         public virtual async Task Delete<T>(Guid id) where T : class, new()
         {
-            var tipo = new T().GetType();
-            string tableName = GetTableName(tipo.Name);
+            try
+            {
+                var tipo = new T().GetType();
+                string tableName = GetTableName(tipo.Name);
 
-            string sql = $"DELETE FROM {tableName} WHERE Id{tableName} = @id";
+                string sql = $"DELETE FROM {tableName} WHERE Id{tableName} = @id";
 
-            object dbParams = new { Id = id };
+                object dbParams = new { Id = id };
 
-            await _context.Execute(sql);
+                await _context.Execute(sql, dbParams);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         private string GetTableName(string name)

@@ -16,6 +16,11 @@ namespace Filme.Service.Services
             _filmesRepository = filmesRepository;
         }
 
+        public async Task Delete(int id)
+        {
+            await _filmesRepository.Delete<Movie>(id);
+        }
+
         public async Task<Movie> Get(int id)
         {
            return await _filmesRepository.Get<Movie>(id);
@@ -25,7 +30,6 @@ namespace Filme.Service.Services
         public async Task Post(Movie movie)
         {
             await _filmesRepository.Post<Movie>(movie);
-            Task.CompletedTask.Wait();
         }
 
         public async Task Put(Movie movie)

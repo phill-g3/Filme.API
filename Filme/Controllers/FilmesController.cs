@@ -40,5 +40,12 @@ namespace Filme.Controllers
 
         }
 
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _filmesService.Delete(id);
+            return Ok();
+        }
+
     }
 }

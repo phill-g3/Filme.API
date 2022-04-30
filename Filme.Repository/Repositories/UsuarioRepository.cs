@@ -1,6 +1,5 @@
 ﻿using Filme.Domain;
-using Filme.Domain.Filmes;
-using Filme.Repository;
+using Filme.Domain.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Filme.Repository.Repositories
 {
-    public class FilmesRepository : BaseRepository, IFilmesRepository 
+    public class UsuarioRepository : BaseRepository, IUsuarioRepository
     {
-        public FilmesRepository(IContext context) : base(context)
+        public UsuarioRepository(IContext context) : base(context)
         {
         }
     }

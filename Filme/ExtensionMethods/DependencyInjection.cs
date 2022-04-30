@@ -15,12 +15,14 @@ namespace Filme.ExtensionMethods
             //Services
             services.AddTransient<IFilmesService, FilmesService>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
 
 
             //Repositories
             services.AddScoped<IContext, Context>();
             services.AddScoped<IFilmesRepository, FilmesRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             return services;
         }

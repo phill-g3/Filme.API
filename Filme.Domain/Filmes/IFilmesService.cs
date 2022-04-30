@@ -11,6 +11,6 @@ namespace Filme.Domain.Filmes
         Task<Movie> Get(int id);
         Task Post(Movie movie);
         Task Put(Movie movie);
-
+        Task Delete(int id);
     }
 }
