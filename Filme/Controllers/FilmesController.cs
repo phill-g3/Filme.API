@@ -8,7 +8,7 @@ namespace Filme.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class FilmesController : ControllerBase
     {
         private readonly IFilmesService _filmesService;
@@ -18,10 +18,26 @@ namespace Filme.Controllers
             _filmesService = filmesService;
         }
 
-        [HttpGet("Get")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
+        [HttpGet]
+        public async Task<ActionResult<Movie>> Get(int id)
         {
-            return Ok(await _filmesService.GetMovie(id));
+            return Ok(await _filmesService.Get(id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(Movie movie)
+        {
+            await _filmesService.Post(movie);
+            return Ok();
+
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Movie movie)
+        {
+            await _filmesService.Put(movie);
+            return Ok();
+
         }
 
     }

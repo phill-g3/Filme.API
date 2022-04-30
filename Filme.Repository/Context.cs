@@ -47,5 +47,13 @@ namespace Filme.Repository
                 await connection.QueryAsync(sql, dbParams);
             }
         }
+
+        public async Task Execute(string sql)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(_config["ConnectionString"]))
+            {
+                await connection.QueryAsync(sql);
+            }
+        }
     }
 }

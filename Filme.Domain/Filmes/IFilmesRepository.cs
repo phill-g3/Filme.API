@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Filme.Domain.Filmes
 {
-    public interface IFilmesRepository
+    public interface IFilmesRepository : IRepository
     {
-        Task<Movie> GetMovie(int id);
+        
     }
 }

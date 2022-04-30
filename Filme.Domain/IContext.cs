@@ -11,5 +11,6 @@ namespace Filme.Domain
         Task<List<T>> List<T>(string sql, object dbParams);
         Task<T> Get<T>(string sql, object dbParams);
         Task Execute(string sql, object dbParams);
+        Task Execute(string sql);
     }
 }

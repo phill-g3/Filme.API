@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 
 namespace Filme.Repository.Repositories
 {
-    public class FilmesRepository : IFilmesRepository
+    public class FilmesRepository : BaseRepository, IFilmesRepository 
     {
-        private readonly IContext _context;
 
-        public FilmesRepository(IContext context)
+        public FilmesRepository(IContext context) : base(context, "Filmes")
         {
-            _context = context;
         }
 
         public async Task<Movie> GetMovie(int id)
@@ -25,8 +23,11 @@ namespace Filme.Repository.Repositories
                         WHERE Filmes.IdFilme = @Id";
 
             object dbParams = new { Id = id };
+         
 
             return await _context.Get<Movie>(sql, dbParams);
         }
+
+        
     }
 }

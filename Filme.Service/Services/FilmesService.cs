@@ -16,9 +16,21 @@ namespace Filme.Service.Services
             _filmesRepository = filmesRepository;
         }
 
-        public async Task<Movie> GetMovie(int id)
+        public async Task<Movie> Get(int id)
         {
-           return await _filmesRepository.GetMovie(id);
+           return await _filmesRepository.Get<Movie>(id);
+            
+        }
+
+        public async Task Post(Movie movie)
+        {
+            await _filmesRepository.Post<Movie>(movie);
+            Task.CompletedTask.Wait();
+        }
+
+        public async Task Put(Movie movie)
+        {
+            await _filmesRepository.Put<Movie>(movie);
         }
     }
 }

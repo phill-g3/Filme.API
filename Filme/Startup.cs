@@ -46,7 +46,7 @@ namespace Filme
                 });
 
             services.InjectDependecies();
-
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

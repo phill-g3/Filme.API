@@ -8,6 +8,9 @@ namespace Filme.Domain.Filmes
 {
     public interface IFilmesService
     {
-        Task<Movie> GetMovie(int id);
+        Task<Movie> Get(int id);
+        Task Post(Movie movie);
+        Task Put(Movie movie);
+
     }
 }
