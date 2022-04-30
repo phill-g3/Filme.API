@@ -8,7 +8,7 @@ namespace Filme.Domain.Usuario
 {
     public class Usuario
     {
-        public Guid IdUsuario { get; set; }
+        public Guid Id { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
     }

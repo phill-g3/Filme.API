@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Filme.Domain.Familia
 {
-    public interface IFamiliaRepository
+    public interface IFamiliaRepository : IRepository
     {
-        Task<Familia> GetFamilia(Familia familia);
+       
     }
 }

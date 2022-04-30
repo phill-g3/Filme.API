@@ -8,7 +8,7 @@ namespace Filme.Domain.Filmes
 {
     public class Movie
     {
-        public int IdFilmes { get; set; }
+        public int Id { get; set; }
         public string Capa { get; set; }
         public string Titulo { get; set; }
     }

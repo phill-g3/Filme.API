@@ -34,7 +34,7 @@ namespace Filme.Service.Services
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var idUser = Convert.ToString(user.IdUsuario);
+            var idUser = Convert.ToString(user.Id);
 
             var claims = new[]
             {

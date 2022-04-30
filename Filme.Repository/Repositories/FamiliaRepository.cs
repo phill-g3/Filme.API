@@ -8,24 +8,11 @@ using System.Threading.Tasks;
 
 namespace Filme.Repository.Repositories
 {
-    internal class FamiliaRepository : IFamiliaRepository
+    public class FamiliaRepository : BaseRepository, IFamiliaRepository
     {
-        private readonly IContext _context;
-
-        public FamiliaRepository(IContext context)
+        public FamiliaRepository(IContext context) : base(context)
         {
-            _context = context;
         }
-
-        public async Task<Familia> GetFamilia(Familia familia)
-        {
-            var sql = @"SELECT IdFamilia, Nome, IdUsuario 
-                        FROM Familia
-                        WHERE IdFamilia = @IdFamilia";
-
-            object dbParams = new { IdFamilia = familia.idFamilia };
-
-            return await _context.Get<Familia>(sql, dbParams);
-        }
+       
     }
 }

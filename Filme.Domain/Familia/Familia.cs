@@ -8,8 +8,8 @@ namespace Filme.Domain.Familia
 {
     public class Familia
     {
-        public Guid idFamilia { get; set; }
+        public Guid Id{ get; set; }
         public string Nome { get; set; }
-        public int IdUsuario { get; set; }
+        public Guid IdUsuario { get; set; }
     }
 }

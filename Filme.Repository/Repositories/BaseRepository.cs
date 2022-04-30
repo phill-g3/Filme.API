@@ -21,7 +21,7 @@ namespace Filme.Repository.Repositories
                 var tipo = new T().GetType();
                 string tableName = GetTableName(tipo.Name);
 
-                string sql = $"SELECT * FROM {tableName} WHERE Id{tableName} = @id";
+                string sql = $"SELECT * FROM {tableName} WHERE Id = @id";
 
                 object dbParams = new { Id = id };
 
@@ -39,7 +39,7 @@ namespace Filme.Repository.Repositories
                 var tipo = new T().GetType();
                 string tableName = GetTableName(tipo.Name);
 
-                string sql = $"SELECT * FROM {tableName} WHERE Id{tableName} = @id";
+                string sql = $"SELECT * FROM {tableName} WHERE Id = @id";
 
                 object dbParams = new { Id = id };
 
@@ -59,6 +59,8 @@ namespace Filme.Repository.Repositories
                 string tableName = GetTableName(tipo.Name);
 
                 StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder lastStringBuilder = new StringBuilder();
+                lastStringBuilder.Append($" VALUES(");
                 stringBuilder.Append($"INSERT INTO {tableName} (");
 
                 var props = tipo.GetProperties();
@@ -66,33 +68,21 @@ namespace Filme.Repository.Repositories
 
                 for (int p = 0; p < i; p++)
                 {
-                    if (props[p].Name.Contains("Id")) continue;
+                    if (props[p].Name.Equals("Id")) continue;
 
                     if (p == i - 1)
                     {
                         stringBuilder.Append($"{props[p].Name})");
+                        lastStringBuilder.Append($"'{props[p].GetValue(entity)}')");
                     }
                     else
                     {
                         stringBuilder.Append($"{props[p].Name},");
+                        lastStringBuilder.Append($"'{props[p].GetValue(entity)}',");
                     }
                 }
 
-                stringBuilder.Append($" VALUES(");
-
-                for (int p = 0; p < i; p++)
-                {
-                    if (props[p].Name.Contains("Id")) continue;
-
-                    if (p == i - 1)
-                    {
-                        stringBuilder.Append($"'{props[p].GetValue(entity)}')");
-                    }
-                    else
-                    {
-                        stringBuilder.Append($"'{props[p].GetValue(entity)}',");
-                    }
-                }
+                stringBuilder.Append(lastStringBuilder.ToString());
 
                 string sql = stringBuilder.ToString();
 
@@ -120,7 +110,7 @@ namespace Filme.Repository.Repositories
 
                 for (int p = 0; p < i; p++)
                 {
-                    if (props[p].Name.Contains("Id"))
+                    if (props[p].Name.Equals("Id"))
                     {
                         id = props[p].GetValue(entity).ToString();
                         continue;
@@ -136,7 +126,7 @@ namespace Filme.Repository.Repositories
                     }
                 }
 
-                stringBuilder.Append($" WHERE Id{tableName} = '{id}'");
+                stringBuilder.Append($" WHERE Id = '{id}'");
 
                 string sql = stringBuilder.ToString();
 
@@ -156,7 +146,7 @@ namespace Filme.Repository.Repositories
                 var tipo = new T().GetType();
                 string tableName = GetTableName(tipo.Name);
 
-                string sql = $"DELETE FROM {tableName} WHERE Id{tableName} = @id";
+                string sql = $"DELETE FROM {tableName} WHERE Id = @id";
 
                 object dbParams = new { Id = id };
 
@@ -176,7 +166,7 @@ namespace Filme.Repository.Repositories
                 var tipo = new T().GetType();
                 string tableName = GetTableName(tipo.Name);
 
-                string sql = $"DELETE FROM {tableName} WHERE Id{tableName} = @id";
+                string sql = $"DELETE FROM {tableName} WHERE Id = @id";
 
                 object dbParams = new { Id = id };
 

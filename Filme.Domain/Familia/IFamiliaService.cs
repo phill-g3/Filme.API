@@ -8,6 +8,9 @@ namespace Filme.Domain.Familia
 {
     public interface IFamiliaService
     {
-        Task<Familia> GetFamilia(Familia familia);
+        Task<Familia> Get(Guid id);
+        Task Post(Familia familia);
+        Task Put(Familia familia);
+        Task Delete(Guid id);
     }
 }
