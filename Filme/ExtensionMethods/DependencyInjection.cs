@@ -2,6 +2,7 @@
 using Filme.Domain.Familia;
 using Filme.Domain.Filmes;
 using Filme.Domain.Usuario;
+using Filme.Domain.Votacao;
 using Filme.Repository;
 using Filme.Repository.Repositories;
 using Filme.Service.Services;
@@ -18,6 +19,7 @@ namespace Filme.ExtensionMethods
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUsuarioService, UsuarioService>();
             services.AddTransient<IFamiliaService, FamiliaService>();
+            services.AddTransient<IVotacaoService, VotacaoService>();
 
 
             //Repositories
@@ -26,6 +28,7 @@ namespace Filme.ExtensionMethods
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IFamiliaRepository, FamiliaRepository>();
+            services.AddScoped<IVotacaoRepository, VotacaoRepository>();
 
             return services;
         }

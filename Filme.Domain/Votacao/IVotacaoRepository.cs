@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Filme.Domain
+namespace Filme.Domain.Votacao
 {
-    internal class IService
+    public interface IVotacaoRepository : IRepository
     {
     }
 }
