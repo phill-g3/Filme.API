@@ -1,4 +1,5 @@
 ﻿using Filme.Domain;
+using Filme.Domain.Filmes;
 using Filme.Domain.Votacao;
 using System;
 using System.Collections.Generic;
